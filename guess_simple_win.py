@@ -20,14 +20,15 @@ GPIO.setup(led_pin, GPIO.OUT)   # Set led_pin's mode as output
 ####################################################
 
 def win():
-    Buzz.start(50)
-    Buzz.ChangeFrequency(500)
-    time.sleep(0.2)
+    GPIO.output(led_pin, True)
+    for i in range(1, 10):
+        Buzz.start(50)
+        Buzz.ChangeFrequency(500)
+        time.sleep(0.2)
+        Buzz.ChangeFrequency(600)
+        time.sleep(0.2)
     Buzz.stop()
-    Buzz.start(50)
-    Buzz.ChangeFrequency(600)
-    time.sleep(0.2)
-    Buzz.stop()
+    GPIO.output(led_pin, False)
 
 n = random.randint(1,10)
 
@@ -50,10 +51,7 @@ while n != "guess":
         guess = int(raw_input("Enter an number from 1 to 10:"))
     else:
         print "You guessed it!"
-        GPIO.output(led_pin, True)
-        for i in range(1, 10):
-            win()
-        GPIO.output(led_pin, False)
+        win()
         break
     print
 
